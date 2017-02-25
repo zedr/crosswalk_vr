@@ -5,7 +5,7 @@
   "display": "standalone",
   "orientation": "any",
   "start_url": "index.html",
-  "xwalk_app_version": "0.1",
+  "xwalk_app_version": "0.2",
   "xwalk_command_line": "",
   "xwalk_package_id": "com.zedr.cordova_xw_vr",
   "xwalk_target_platforms": [
