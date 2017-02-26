@@ -18,7 +18,7 @@
                     geo = new THREE.PlaneBufferGeometry(x, y, w, h),
                     mat = new THREE.MeshLambertMaterial(
                         {
-                            color: "red", wireframe: true
+                            color: 0xffaaaa, wireframe: true
                         }
                     ),
                     mesh = new THREE.Mesh(geo, mat);
@@ -36,7 +36,7 @@
 
                 return world;
             },
-            createFromMatrix: function(matrix) {
+            createFromMatrix: function (matrix) {
                 // The matrix needs to have the dimensions of a square.
                 const w = matrix.length,
                     h = matrix[0].length,
@@ -88,21 +88,8 @@
         controls,
         effect;
 
-    function populate(scene) {
-        const world = World.createFromMatrix(
-            [
-                [1, 1, 0, 0, 1, 1, 1, 0, 0, 0],
-                [0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 2, 2, 1, 1, 0, 0, 1, 1],
-                [0, 1, 2, 2, 2, 1, 0, 0, 1, 1],
-                [1, 2, 3, 3, 2, 1, 0, 0, 1, 1],
-                [1, 1, 2, 2, 2, 1, 0, 0, 1, 1],
-                [1, 1, 2, 3, 3, 3, 3, 0, 1, 1],
-                [0, 1, 2, 3, 4, 4, 4, 0, 1, 1],
-                [0, 1, 2, 3, 4, 4, 4, 0, 1, 1],
-                [0, 1, 2, 2, 3, 3, 3, 1, 0, 0]
-            ]
-        ),
+    function populate(scene, matrix) {
+        const world = World.createFromMatrix(matrix),
             ambLight = new THREE.AmbientLight(0xffffff, 0.25),
             ptLight = new THREE.PointLight(0xffffff, 1);
 
@@ -143,7 +130,7 @@
         vrDisplay.requestAnimationFrame(render);
     }
 
-    function initialise() {
+    function initialise(matrix) {
         const renderer = new THREE.WebGLRenderer({
             antialias: true
         }),
@@ -158,7 +145,7 @@
         camera.position.y = controls.userHeight;
         effect.setSize(window.innerWidth / window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        populate(scene);
+        populate(scene, matrix);
 
         document.body.appendChild(renderer.domElement);
 
@@ -183,6 +170,6 @@
         window.addEventListener('vrdisplaypresentchange', onResize, true);
     }
 
-    window.addEventListener("load", initialise);
+    window.initGame = initialise;
 
 }());
