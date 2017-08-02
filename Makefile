@@ -1,8 +1,8 @@
 default: build
 
-build: clean
+build:
 	crosswalk-pkg app
 	adb install -r com.zedr.cordova_xw_vr-?.?-debug.armeabi-v7a.apk
 
 clean:
-	@rm *apk
+	@rm -f *apk
